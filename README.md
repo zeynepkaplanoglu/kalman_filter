@@ -10,8 +10,11 @@ The Kalman Filter aims to predict the state of a system at time k using the line
 MATLAB 
 ## Folder Structure
 Kalman_filter
->|── sample_input1
+
+|── sample_input
+
 |   |── matlab kalman formula, moving object data, noise
+
 |── sample_output
 |   |── time and position graph, filtered output graph
 |── example.py
