@@ -6,3 +6,16 @@ We can think of the mathematical model as a function. Functions have parameters 
 Since our goal of this tutorial is to implement the Kalman filter in computer programming code, this tutorial was created exclusively for the Discrete Kalman filter.
 The basic idea of the Kalman filter is to use previous knowledge of the situation, the filter makes a forward projection state or predicts the next situation.
 The Kalman Filter aims to predict the state of a system at time k using the linear stochastic difference equation, assuming that the state of a system at time k has evolved as written from the previous state at time k-1.
+## Prerequisites
+MATLAB 
+## Folder Structure
+Kalman_filter
+|── sample_input
+|   |── matlab kalman formula, moving object data, noise
+|── sample_output
+|   |── time and position graph, filtered output graph
+|── example.py
+|── parameter_extraction.py
+|── report_to_anim.py
+|── requirements.txt
+|── LICENSE
