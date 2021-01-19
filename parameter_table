@@ -1,0 +1,15 @@
+```
+t = linspace(0,100,1001);%Discrete times from 1 to 100 for time t
+
+%model a moving object that follows a simple path as given in the following function:
+pos = 0.1*(t.^2-t);
+
+
+sz = size(pos); %the variable named sz takes "position matrix" (pos) size
+meas = zeros(sz(2),1); %zeros vector of size 101x1 is created by using sz variable to initialize measurement vector
+
+for i=1:sz(2)
+    meas(i) = pos(i) + (rand(1)-0.5)*500; 
+end
+
+```
