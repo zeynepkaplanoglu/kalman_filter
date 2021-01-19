@@ -16,9 +16,15 @@ Kalman_filter
 |   |── matlab kalman formula, moving object data, noise
 
 |── sample_output
+
 |   |── time and position graph, filtered output graph
+
 |── example.py
-|── parameter_extraction.py
-|── report_to_anim.py
+
+|── parameter_table.py
+
+|── output_graph.py
+
 |── requirements.txt
+
 |── LICENSE
