@@ -25,6 +25,117 @@ Kalman_filter
 
 |── output_graph.py
 
-|── requirements.txt
+|── kalman code.txt
 
 |── LICENSE
+
+## Example
+
+This example is created with MATLAB code.
+In this example, we want to model a moving object that follows a simple path as given in the pos function.
+
+clear all;
+clc;
+
+t = linspace(0,100,1001);%Discrete times from 1 to 100 for time t
+
+%model a moving object that follows a simple path as given in the following function:
+pos = 0.1*(t.^2-t);
+
+
+sz = size(pos); %the variable named sz takes "position matrix" (pos) size
+meas = zeros(sz(2),1); %zeros vector of size 101x1 is created by using sz variable to initialize measurement vector
+
+for i=1:sz(2)
+    meas(i) = pos(i) + (rand(1)-0.5)*500; 
+end
+
+% previously created empty measurement vector, meas, is filled in the above
+% for loop
+% meas vector is based upon "position vector" (pos). In each iteration a
+% random value is added to value of position vector corresponding
+% measurement value. 
+
+%plot(t,pos) %position value vs dicrete time plot
+
+dt = 0.1; %discrete time value
+sigma_acc = 0.25; %standard devitaion of acceleration
+sigma_meas = 1.2; %standard deviation of measurement
+
+A = [1 dt; 0 1]; %State transition matrix A
+B = [0.5*dt^2; dt]; %control matrix B
+
+H = [1 0]; %Transformation matrix H
+
+Q = [dt^4/4 dt^3/2; dt^3/2 dt^2]*sigma_acc^2; %Proess noise covariance matrix Q
+
+R = sigma_meas^2; %Measurement noise covariance matrix R
+
+p0 = eye(2); 
+
+x0 = [0; 0];
+
+u = 2;
+
+KM = cell(1002,7); %Struct variable of size 102x7
+
+
+% P0 = 10; %P için tahmin 
+% x0 = 10; %x için tahmin
+
+% 
+
+%KM is a struct variable holding Ppe "Xpe P X K z" pos for its columns
+
+KM(1,4) = {x0};
+KM(1,3) = {p0};
+
+pos = pos';
+
+for i=2:1002
+    KM(i,6) = {meas(i-1,1)};
+    KM(i,7) = {pos(i-1,1)};
+end
+
+for i=2:1002
+    KM(i,1)={A*cell2mat(KM(1,4))};
+end
+
+for i=2:1002
+
+    KM(i,2)={A*cell2mat(KM(i-1,4)) + B*u}; %priori state estimates
+    KM(i,1)={A*cell2mat(KM(i-1,3))*A'+Q};  %priori error covariance
+    
+    Ppe = cell2mat(KM(i,1)); %cells converted to matrix
+    Xpe = cell2mat(KM(i,2)); %cells converted to matrix
+    
+    KM(i,5)={Ppe*(H'*inv(H*Ppe*H'+R))}; %Calculation of Kalman Gain
+   
+    K = cell2mat(KM(i,5)); %Kalman Gain
+    z = cell2mat(KM(i,6)); %measured position
+    
+    KM(i,4)={Xpe+K*(z-H*Xpe)}; %update estimate with measurement
+    
+    KM(i,3)={(eye(2)-K*H)*Ppe}; %update the error covariance
+
+end
+
+
+kal1 = KM(2:1002, 4);
+kalm_mat = cell2mat(kal1);
+kalm_mat_res = reshape(kalm_mat, [2,1001]);
+pred_pos = kalm_mat_res(1,:); %predicted position vector
+pred_pos = pred_pos'; %predicted position vector transpose
+
+plot(t, pos, "Color", "green", "LineWidth",2);
+hold on;
+plot(t, meas,"Color","red");
+hold on;
+plot(t, pred_pos, "Color", "blue", "LineWidth",1, "LineStyle","-.")
+
+legend("actual", "measured", "kalman_pred")
+
+hold off;
+
+clf('reset')
+
