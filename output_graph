@@ -1,0 +1,16 @@
+
+```
+kal1 = KM(2:1002, 4);
+kalm_mat = cell2mat(kal1);
+kalm_mat_res = reshape(kalm_mat, [2,1001]);
+pred_pos = kalm_mat_res(1,:); %predicted position vector
+pred_pos = pred_pos'; %predicted position vector transpose
+
+plot(t, pos, "Color", "green", "LineWidth",2);
+hold on;
+plot(t, meas,"Color","red");
+hold on;
+plot(t, pred_pos, "Color", "blue", "LineWidth",1, "LineStyle","-.")
+
+legend("actual", "measured", "kalman_pred")
+```
