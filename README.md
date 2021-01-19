@@ -34,6 +34,7 @@ Kalman_filter
 This example is created with MATLAB code.
 In this example, we want to model a moving object that follows a simple path as given in the pos function.
 
+```
 clear all;
 clc;
 
@@ -139,3 +140,4 @@ hold off;
 
 clf('reset')
 
+```
