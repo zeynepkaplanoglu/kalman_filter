@@ -12,4 +12,16 @@ for i=1:sz(2)
     meas(i) = pos(i) + (rand(1)-0.5)*500; 
 end
 
+% previously created empty measurement vector, meas, is filled in the above
+% for loop
+% meas vector is based upon "position vector" (pos). In each iteration a
+% random value is added to value of position vector corresponding
+% measurement value. 
+
+%plot(t,pos) %position value vs dicrete time plot
+
+dt = 0.1; %discrete time value
+sigma_acc = 0.25; %standard devitaion of acceleration
+sigma_meas = 1.2; %standard deviation of measurement
+
 ```
