@@ -21,9 +21,9 @@ Kalman_filter
 
 |── example.py
 
-|── parameter_table.py
+|── Time_and_Position_for_Moving_Object.py
 
-|── output_graph.py
+|── parameter_table.py
 
 |── kalman_filter.txt
 
@@ -31,8 +31,10 @@ Kalman_filter
 
 ## Example
 
-This example is created with MATLAB code.
+This example is created with MATLAB.
 In this example, we want to model a moving object that follows a simple path as given in the pos function.
+
+## Time and Position for Moving Object 
 
 ```
 clear all;
@@ -77,6 +79,10 @@ p0 = eye(2);
 x0 = [0; 0];
 
 u = 2;
+```
+
+## Parameter Table
+```
 
 KM = cell(1002,7); %Struct variable of size 102x7
 
@@ -101,6 +107,10 @@ end
 for i=2:1002
     KM(i,1)={A*cell2mat(KM(1,4))};
 end
+```
+## Kalman Filter
+
+```
 
 for i=2:1002
 
